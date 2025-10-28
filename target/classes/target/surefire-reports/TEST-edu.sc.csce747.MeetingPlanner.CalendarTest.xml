@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="edu.sc.csce747.MeetingPlanner.CalendarTest" time="0.018" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="edu.sc.csce747.MeetingPlanner.CalendarTest" time="0.0" tests="8" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="25"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -9,10 +9,10 @@
     <property name="java.vendor.url" value="https://github.com/Homebrew/homebrew-core/issues"/>
     <property name="os.name" value="Mac OS X"/>
     <property name="java.vm.specification.version" value="25"/>
-    <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="MN"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.boot.library.path" value="/opt/homebrew/Cellar/openjdk/25/libexec/openjdk.jdk/Contents/Home/lib"/>
-    <property name="sun.java.command" value="/Users/murdorj/Downloads/MeetingPlanner/target/surefire/surefirebooter-20251028225730127_3.jar /Users/murdorj/Downloads/MeetingPlanner/target/surefire 2025-10-28T22-57-28_625-jvmRun1 surefire-20251028225730127_1tmp surefire_0-20251028225730127_2tmp"/>
+    <property name="sun.java.command" value="/Users/murdorj/Downloads/MeetingPlanner/target/surefire/surefirebooter-20251028235318049_3.jar /Users/murdorj/Downloads/MeetingPlanner/target/surefire 2025-10-28T23-53-18_022-jvmRun1 surefire-20251028235318049_1tmp surefire_0-20251028235318049_2tmp"/>
     <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="/Users/murdorj/Downloads/MeetingPlanner/target/test-classes:/Users/murdorj/Downloads/MeetingPlanner/target/classes:/Users/murdorj/.m2/repository/junit/junit/4.13.2/junit-4.13.2.jar:/Users/murdorj/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:"/>
@@ -24,12 +24,13 @@
     <property name="java.home" value="/opt/homebrew/Cellar/openjdk/25/libexec/openjdk.jdk/Contents/Home"/>
     <property name="file.separator" value="/"/>
     <property name="basedir" value="/Users/murdorj/Downloads/MeetingPlanner"/>
+    <property name="style.color" value="always"/>
     <property name="java.vm.compressedOopsMode" value="Zero based"/>
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="apple.awt.application.name" value="ForkedBooter"/>
-    <property name="surefire.real.class.path" value="/Users/murdorj/Downloads/MeetingPlanner/target/surefire/surefirebooter-20251028225730127_3.jar"/>
+    <property name="surefire.real.class.path" value="/Users/murdorj/Downloads/MeetingPlanner/target/surefire/surefirebooter-20251028235318049_3.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.runtime.version" value="25"/>
@@ -41,12 +42,15 @@
     <property name="file.encoding" value="UTF-8"/>
     <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
     <property name="java.vendor.version" value="Homebrew"/>
+    <property name="maven.ext.class.path" value="/Applications/IntelliJ IDEA.app/Contents/plugins/maven/lib/maven-event-listener.jar"/>
     <property name="localRepository" value="/Users/murdorj/.m2/repository"/>
     <property name="java.vendor.url.bug" value="https://github.com/Homebrew/homebrew-core/issues"/>
     <property name="java.io.tmpdir" value="/var/folders/sz/zx317wrd3p5b9pc989yxlrcm0000gn/T/"/>
+    <property name="idea.version" value="2025.2.4"/>
     <property name="java.version" value="25"/>
     <property name="user.dir" value="/Users/murdorj/Downloads/MeetingPlanner"/>
     <property name="os.arch" value="aarch64"/>
+    <property name="jansi.passthrough" value="true"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
     <property name="native.encoding" value="UTF-8"/>
     <property name="java.library.path" value="/Users/murdorj/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:."/>
@@ -56,8 +60,16 @@
     <property name="java.vm.version" value="25"/>
     <property name="stdin.encoding" value="UTF-8"/>
     <property name="sun.io.unicode.encoding" value="UnicodeBig"/>
+    <property name="maven.repo.local" value="/Users/murdorj/.m2/repository"/>
     <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.class.version" value="69.0"/>
   </properties>
-  <testcase name="testAddMeeting_holiday" classname="edu.sc.csce747.MeetingPlanner.CalendarTest" time="0.002"/>
+  <testcase name="testCheckTimes_validDecember_shouldNotThrow" classname="edu.sc.csce747.MeetingPlanner.CalendarTest" time="0.0"/>
+  <testcase name="testCheckTimes_invalidDay_low_high" classname="edu.sc.csce747.MeetingPlanner.CalendarTest" time="0.0"/>
+  <testcase name="testCheckTimes_invalidMonth_low_high" classname="edu.sc.csce747.MeetingPlanner.CalendarTest" time="0.0"/>
+  <testcase name="testAddMeeting_holiday" classname="edu.sc.csce747.MeetingPlanner.CalendarTest" time="0.0"/>
+  <testcase name="testAddMeeting_strictOverlap_conflict" classname="edu.sc.csce747.MeetingPlanner.CalendarTest" time="0.0"/>
+  <testcase name="testImpossibleDays_markedBusy_viaSentinel" classname="edu.sc.csce747.MeetingPlanner.CalendarTest" time="0.0"/>
+  <testcase name="testAddMeeting_overlap_inclusive_end_conflict" classname="edu.sc.csce747.MeetingPlanner.CalendarTest" time="0.0"/>
+  <testcase name="testCheckTimes_invalidTime_bounds_and_range" classname="edu.sc.csce747.MeetingPlanner.CalendarTest" time="0.0"/>
 </testsuite>
