@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Calendar.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">MeetingPlanner</a> &gt; <a href="index.source.html" class="el_package">edu.sc.csce747.MeetingPlanner</a> &gt; <span class="el_source">Calendar.java</span></div><h1>Calendar.java</h1><pre class="source lang-java linenums">package edu.sc.csce747.MeetingPlanner;
+
+import java.util.ArrayList;
+
+public class Calendar {
+	// Indexed by Month, Day
+	private ArrayList&lt;ArrayList&lt;ArrayList&lt;Meeting&gt;&gt;&gt; occupied;
+
+	/**
+	 * Default constructor, builds a calendar and initializes each day
+	 * to an empty list.
+	 */
+<span class="fc" id="L13">	public Calendar(){</span>
+		/** Create an empty calendar
+		 * Order of access is month, day, meetingNumber
+		 * We want to tie 1 to Janaury, 2 to February, etc,
+		 * so we will index 1-12 for months, 1-31 for days.
+		 * Times are indexed 0 - 23.
+		 * Need to check bounds when adding a meeting.
+		 */
+<span class="fc" id="L21">		occupied = new ArrayList&lt;ArrayList&lt;ArrayList&lt;Meeting&gt;&gt;&gt;();</span>
+
+<span class="fc bfc" id="L23" title="All 2 branches covered.">		for(int i=0;i&lt;=13;i++){</span>
+			// Initialize month
+<span class="fc" id="L25">			occupied.add(new ArrayList&lt;ArrayList&lt;Meeting&gt;&gt;());</span>
+<span class="fc bfc" id="L26" title="All 2 branches covered.">			for(int j=0;j&lt;32;j++){</span>
+				// Initialize days
+<span class="fc" id="L28">				occupied.get(i).add(new ArrayList&lt;Meeting&gt;());</span>
+			}
+		}
+
+		/** Not every month should have 31 days.
+		 * We can deal with this in a hack-ish manner by
+		 * putting in all-day meetings for those dates.
+		 */
+<span class="fc" id="L36">		occupied.get(2).get(29).add(new Meeting(2,29,&quot;Day does not exist&quot;));</span>
+<span class="fc" id="L37">		occupied.get(2).get(30).add(new Meeting(2,30,&quot;Day does not exist&quot;));</span>
+<span class="fc" id="L38">		occupied.get(2).get(31).add(new Meeting(2,31,&quot;Day does not exist&quot;));</span>
+<span class="fc" id="L39">		occupied.get(4).get(31).add(new Meeting(4,31,&quot;Day does not exist&quot;));</span>
+<span class="fc" id="L40">		occupied.get(6).get(31).add(new Meeting(6,31,&quot;Day does not exist&quot;));</span>
+<span class="fc" id="L41">		occupied.get(9).get(31).add(new Meeting(9,31,&quot;Day does not exist&quot;));</span>
+<span class="fc" id="L42">		occupied.get(11).get(30).add(new Meeting(11,31,&quot;Day does not exist&quot;));</span>
+<span class="fc" id="L43">		occupied.get(11).get(31).add(new Meeting(11,31,&quot;Day does not exist&quot;));</span>
+<span class="fc" id="L44">	}</span>
+
+	/**
+	 * Used to check whether a meeting is scheduled during a particular
+	 * time frame.
+	 * @param month - The month of the meeting (1-12)
+	 * @param day - The day of the meeting (1-31)
+	 * @param start - The time the meeting starts (0-23)
+	 * @param end - The time the meeting ends (0-23)
+	 * @return boolean - Whether the calendar has an entry in that timeframe.
+	 * @throws TimeConflictException If an invalid date or time is entered.
+	 */
+	public boolean isBusy(int month, int day, int start, int end) throws TimeConflictException{
+<span class="fc" id="L57">		boolean busy = false;</span>
+
+<span class="fc" id="L59">		checkTimes(month,day,start,end);</span>
+
+<span class="fc bfc" id="L61" title="All 2 branches covered.">		for(Meeting toCheck : occupied.get(month).get(day)){</span>
+<span class="pc bpc" id="L62" title="2 of 4 branches missed.">			if(start &gt;= toCheck.getStartTime() &amp;&amp; start &lt;= toCheck.getEndTime()){</span>
+<span class="fc" id="L63">				busy=true;</span>
+<span class="nc bnc" id="L64" title="All 4 branches missed.">			}else if(end &gt;= toCheck.getStartTime() &amp;&amp; end &lt;= toCheck.getEndTime()){</span>
+<span class="nc" id="L65">				busy=true;</span>
+			}
+<span class="fc" id="L67">		}</span>
+<span class="fc" id="L68">		return busy;</span>
+	}
+
+	/**
+	 * Basic error checking on numbers.
+	 * @param mMonth - The month of the meeting (1-12)
+	 * @param mDay - The day of the meeting (1-31)
+	 * @param mStart - The time the meeting starts (0-23)
+	 * @param mEnd - The time the meeting ends (0-23)
+	 * @throws TimeConflictException - If an invalid date or time is entered.
+	 */
+    public static void checkTimes(int mMonth,int mDay,int mStart, int mEnd) throws TimeConflictException{
+        // Check for illegal dates
+<span class="fc bfc" id="L81" title="All 4 branches covered.">        if (mDay &lt; 1 || mDay &gt; 31) {</span>
+<span class="fc" id="L82">            throw new TimeConflictException(&quot;Day does not exist.&quot;);</span>
+        }
+
+        // BUG FIX: 12-р сар хүчинтэй (&gt;=12 биш, &gt;12 байх ёстой)
+<span class="fc bfc" id="L86" title="All 4 branches covered.">        if (mMonth &lt; 1 || mMonth &gt; 12) {</span>
+<span class="fc" id="L87">            throw new TimeConflictException(&quot;Month does not exist.&quot;);</span>
+        }
+
+        // Check for illegal times
+<span class="pc bpc" id="L91" title="1 of 4 branches missed.">        if (mStart &lt; 0 || mStart &gt; 23) {</span>
+<span class="fc" id="L92">            throw new TimeConflictException(&quot;Illegal hour.&quot;);</span>
+        }
+<span class="pc bpc" id="L94" title="1 of 4 branches missed.">        if (mEnd &lt; 0 || mEnd &gt; 23) {</span>
+<span class="fc" id="L95">            throw new TimeConflictException(&quot;Illegal hour.&quot;);</span>
+        }
+        boolean invalidOrder;
+<span class="pc bpc" id="L98" title="1 of 2 branches missed.">        if (MutationConfig.isActive(&quot;MUTANT_REL_BOUNDARY&quot;)) {</span>
+<span class="nc bnc" id="L99" title="All 2 branches missed.">            invalidOrder = mStart &gt; mEnd;</span>
+        } else {
+<span class="fc bfc" id="L101" title="All 2 branches covered.">            invalidOrder = mStart &gt;= mEnd;</span>
+        }
+<span class="fc bfc" id="L103" title="All 2 branches covered.">        if (invalidOrder) {</span>
+<span class="fc" id="L104">            throw new TimeConflictException(&quot;Meeting starts before it ends.&quot;);</span>
+        }
+<span class="fc" id="L106">    }</span>
+
+
+    /**
+	 * Used to add a meeting to a calendar
+	 * @param toAdd - A Meeting object to add to the calendar
+	 * @throws TimeConflictException - If an invalid date or time is entered.
+	 */
+	public void addMeeting(Meeting toAdd) throws TimeConflictException{
+<span class="fc" id="L115">		int mDay = toAdd.getDay();</span>
+<span class="fc" id="L116">		int mMonth = toAdd.getMonth();</span>
+<span class="fc" id="L117">		int mStart = toAdd.getStartTime();</span>
+<span class="fc" id="L118">		int mEnd = toAdd.getEndTime();</span>
+
+<span class="fc" id="L120">		checkTimes(mMonth,mDay,mStart,mEnd);</span>
+
+
+		// Check whether a meeting is already scheduled at this time.
+<span class="fc" id="L124">		ArrayList&lt;Meeting&gt; thatDay = occupied.get(mMonth).get(mDay);</span>
+<span class="fc" id="L125">		boolean booked = false;</span>
+<span class="fc" id="L126">		Meeting conflict = new Meeting();</span>
+
+<span class="fc bfc" id="L128" title="All 2 branches covered.">		for(Meeting toCheck : thatDay){</span>
+<span class="pc bpc" id="L129" title="1 of 2 branches missed.">			if(!toCheck.getDescription().equals(&quot;Day does not exist&quot;)){</span>
+				// Does the start time fall between this meeting's start and end times?
+<span class="pc bpc" id="L131" title="2 of 4 branches missed.">				if(mStart &gt;= toCheck.getStartTime() &amp;&amp; mStart &lt;= toCheck.getEndTime()){</span>
+<span class="fc" id="L132">					booked = true;</span>
+<span class="fc" id="L133">					conflict = toCheck;</span>
+					// Does the end time fall between this meeting's start and end times?
+<span class="nc bnc" id="L135" title="All 4 branches missed.">				}else if(mEnd &gt;= toCheck.getStartTime() &amp;&amp; mEnd &lt;= toCheck.getEndTime()){</span>
+<span class="nc" id="L136">					booked = true;</span>
+<span class="nc" id="L137">					conflict = toCheck;</span>
+				}
+			}
+<span class="fc" id="L140">		}</span>
+
+<span class="fc bfc" id="L142" title="All 2 branches covered.">		if(booked){</span>
+<span class="fc" id="L143">			throw new TimeConflictException(&quot;Overlap with another item - &quot;+conflict.getDescription()</span>
+<span class="fc" id="L144">				+&quot; - scheduled from &quot;+conflict.getStartTime()+&quot; and &quot;+conflict.getEndTime());</span>
+		}else{
+<span class="fc" id="L146">			occupied.get(mMonth).get(mDay).add(toAdd);</span>
+		}
+<span class="fc" id="L148">	}</span>
+
+	/**
+	 * Clears all meetings for a day.
+	 * @param month - The month of the meeting (1-12)
+	 * @param day - The day of the meeting (1-31)
+	 */
+	public void clearSchedule(int month, int day){
+<span class="fc" id="L156">		occupied.get(month).set(day, new ArrayList&lt;Meeting&gt;());</span>
+<span class="fc" id="L157">	}</span>
+
+	/**
+	 * Used to print the calendar for a month in string form.
+	 * @param month - The month of the meeting (1-12)
+	 * @return String - The agenda as a formatted string.
+	 */
+	public String printAgenda(int month){
+<span class="fc" id="L165">		String agenda = &quot;Agenda for &quot;+month+&quot;:\n&quot;;</span>
+<span class="fc bfc" id="L166" title="All 2 branches covered.">		for(ArrayList&lt;Meeting&gt; toPrint : occupied.get(month)){</span>
+<span class="fc bfc" id="L167" title="All 2 branches covered.">			for(Meeting meeting: toPrint){</span>
+<span class="fc" id="L168">				agenda = agenda+meeting.toString()+&quot;\n&quot;;</span>
+<span class="fc" id="L169">			}</span>
+<span class="fc" id="L170">		}</span>
+
+<span class="fc" id="L172">		return agenda;</span>
+	}
+
+	/**
+	 * Used to print the calendar for a day in string form.
+	 * @param month - The month of the meeting (1-12)
+	 * @param day - The day of the meeting (1-31)
+	 * @return String - The agenda as a formatted string.
+	 */
+	public String printAgenda(int month, int day){
+<span class="fc" id="L182">		String agenda = &quot;Agenda for &quot;+month+&quot;/&quot;+day+&quot;:\n&quot;;</span>
+<span class="fc bfc" id="L183" title="All 2 branches covered.">		for(Meeting toPrint : occupied.get(month).get(day)){</span>
+<span class="fc" id="L184">			agenda = agenda+toPrint.toString()+&quot;\n&quot;;</span>
+<span class="fc" id="L185">		}</span>
+
+<span class="fc" id="L187">		return agenda;</span>
+	}
+
+	/**
+	 * Retrieves a meeting from the calendar.
+	 * @param month - The month of the meeting (1-12)
+	 * @param day - The day of the meeting (1-31)
+	 * @param index - The index in the list for the meeting
+	 */
+	public Meeting getMeeting(int month, int day, int index){
+<span class="fc" id="L197">		return occupied.get(month).get(day).get(index);</span>
+	}
+
+	/**
+	 * Removes a meeting from the calendar.
+	 * @param month - The month of the meeting (1-12)
+	 * @param day - The day of the meeting (1-31)
+	 * @param index - The index in the list for the meeting
+	 */
+	public void removeMeeting(int month, int day, int index){
+<span class="fc" id="L207">		occupied.get(month).get(day).remove(index);</span>
+<span class="fc" id="L208">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

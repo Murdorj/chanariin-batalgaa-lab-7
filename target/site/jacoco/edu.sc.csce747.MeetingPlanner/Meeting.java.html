@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Meeting.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">MeetingPlanner</a> &gt; <a href="index.source.html" class="el_package">edu.sc.csce747.MeetingPlanner</a> &gt; <span class="el_source">Meeting.java</span></div><h1>Meeting.java</h1><pre class="source lang-java linenums">package edu.sc.csce747.MeetingPlanner;
+
+import java.util.ArrayList;
+
+public class Meeting {
+	private int month;
+	private int day;
+	private int start;
+	private int end;
+	private ArrayList&lt;Person&gt; attendees;
+	private Room room;
+	private String description;
+
+	/**
+	 * Default constructor
+	 */
+<span class="fc" id="L17">    public Meeting(){</span>
+<span class="fc" id="L18">        this.attendees = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L19">        this.room = new Room();</span>
+<span class="fc" id="L20">        this.description = &quot;&quot;;</span>
+<span class="fc" id="L21">    }</span>
+
+
+    /**
+	 * Constructor that can be used to block off a whole day -
+	 * such as for a vacation
+	 * @param month - The month of the meeting (1-12).
+	 * @param day - The day of the meeting (1-31).
+	 */
+<span class="fc" id="L30">	public Meeting(int month, int day){</span>
+<span class="fc" id="L31">		this.month=month;</span>
+<span class="fc" id="L32">		this.day=day;</span>
+<span class="fc" id="L33">		this.start=0;</span>
+<span class="fc" id="L34">		this.end=23;</span>
+<span class="fc" id="L35">	}</span>
+
+	/**
+	 * Constructor that can be used to block off a whole day -
+	 * such as for a vacation
+	 * @param month - The month of the meeting (1-12).
+	 * @param day - The day of the meeting (1-31).
+	 * @param description - A description of the meeting.
+	 */
+<span class="fc" id="L44">	public Meeting(int month, int day, String description){</span>
+<span class="fc" id="L45">		this.month=month;</span>
+<span class="fc" id="L46">		this.day=day;</span>
+<span class="fc" id="L47">		this.start=0;</span>
+<span class="fc" id="L48">		this.end=23;</span>
+<span class="fc" id="L49">		this.description= description;</span>
+<span class="fc" id="L50">	}</span>
+
+	/**
+	 * More detailed constructor
+	 * @param month - The month of the meeting (1-12).
+	 * @param day - The day of the meeting (1-31).
+	 * @param start - The time the meeting starts (0-23).
+	 * @param end - The time the meeting ends (0-23).
+	 */
+<span class="fc" id="L59">	public Meeting(int month, int day, int start, int end){</span>
+<span class="fc" id="L60">		this.month=month;</span>
+<span class="fc" id="L61">		this.day=day;</span>
+<span class="fc" id="L62">		this.start=start;</span>
+<span class="fc" id="L63">		this.end=end;</span>
+<span class="fc" id="L64">	}</span>
+
+	/**
+	 * More detailed constructor
+	 * @param month - The month of the meeting (1-12).
+	 * @param day - The day of the meeting (1-31).
+	 * @param start - The time the meeting starts (0-23).
+	 * @param end - The time the meeting ends (0-23).
+	 * @param attendees - The people attending the meeting.
+	 * @param room - The room that the meeting is taking place in.
+	 * @param description - A description of the meeting.
+	 */
+<span class="fc" id="L76">	public Meeting(int month, int day, int start, int end, ArrayList&lt;Person&gt; attendees, Room room, String description){</span>
+<span class="fc" id="L77">		this.month=month;</span>
+<span class="fc" id="L78">		this.day=day;</span>
+<span class="fc" id="L79">		this.start=start;</span>
+<span class="fc" id="L80">		this.end=end;</span>
+<span class="fc" id="L81">		this.attendees = attendees;</span>
+<span class="fc" id="L82">		this.room = room;</span>
+<span class="fc" id="L83">		this.description = description;</span>
+<span class="fc" id="L84">	}</span>
+
+	/**
+	 * Add an attendee to the meeting.
+	 * @param attendee - The person to add.
+	 */
+    public void addAttendee(Person attendee) {
+<span class="pc bpc" id="L91" title="1 of 2 branches missed.">        if (this.attendees == null) this.attendees = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L92">        this.attendees.add(attendee);</span>
+<span class="fc" id="L93">    }</span>
+
+    public void removeAttendee(Person attendee) {
+<span class="pc bpc" id="L96" title="1 of 2 branches missed.">        if (this.attendees == null) return;</span>
+<span class="fc" id="L97">        this.attendees.remove(attendee);</span>
+<span class="fc" id="L98">    }</span>
+
+
+    /**
+	 * Returns information about the meeting as a formatted string.
+	 * @return String - Information about the meeting.
+	 */
+    public String toString(){
+<span class="pc bpc" id="L106" title="1 of 4 branches missed.">        String roomId = (room != null &amp;&amp; room.getID() != null) ? room.getID() : &quot;&quot;;</span>
+<span class="fc bfc" id="L107" title="All 2 branches covered.">        String desc = (description != null) ? description : &quot;&quot;;</span>
+<span class="fc" id="L108">        StringBuilder info = new StringBuilder();</span>
+<span class="fc" id="L109">        info.append(month).append(&quot;/&quot;).append(day).append(&quot;, &quot;)</span>
+<span class="fc" id="L110">                .append(start).append(&quot; - &quot;).append(end).append(&quot;,&quot;)</span>
+<span class="fc" id="L111">                .append(roomId).append(&quot;: &quot;).append(desc)</span>
+<span class="fc" id="L112">                .append(&quot;\nAttending: &quot;);</span>
+
+<span class="fc bfc" id="L114" title="All 4 branches covered.">        if (attendees != null &amp;&amp; !attendees.isEmpty()) {</span>
+<span class="fc bfc" id="L115" title="All 2 branches covered.">            for (Person attendee : attendees) {</span>
+<span class="fc" id="L116">                info.append(attendee.getName()).append(&quot;,&quot;);</span>
+<span class="fc" id="L117">            }</span>
+<span class="fc" id="L118">            info.setLength(info.length() - 1); // remove trailing comma</span>
+        } else {
+<span class="fc" id="L120">            info.append(&quot;none&quot;);</span>
+        }
+<span class="fc" id="L122">        return info.toString();</span>
+    }
+
+
+    /**
+	 * Getters and Setters
+	 */
+
+	public int getMonth() {
+<span class="fc" id="L131">		return month;</span>
+	}
+
+	public void setMonth(int month) {
+<span class="fc" id="L135">		this.month = month;</span>
+<span class="fc" id="L136">	}</span>
+
+	public int getDay() {
+<span class="fc" id="L139">		return day;</span>
+	}
+
+	public void setDay(int day) {
+<span class="fc" id="L143">		this.day = day;</span>
+<span class="fc" id="L144">	}</span>
+
+	public int getStartTime() {
+<span class="fc" id="L147">		return start;</span>
+	}
+
+	public void setStartTime(int start) {
+<span class="fc" id="L151">		this.start = start;</span>
+<span class="fc" id="L152">	}</span>
+
+	public int getEndTime() {
+<span class="fc" id="L155">		return end;</span>
+	}
+
+	public void setEndTime(int end) {
+<span class="fc" id="L159">		this.end = end;</span>
+<span class="fc" id="L160">	}</span>
+
+	public ArrayList&lt;Person&gt; getAttendees() {
+<span class="fc" id="L163">		return attendees;</span>
+	}
+
+	public Room getRoom() {
+<span class="fc" id="L167">		return room;</span>
+	}
+
+	public void setRoom(Room room) {
+<span class="fc" id="L171">		this.room = room;</span>
+<span class="fc" id="L172">	}</span>
+
+	public String getDescription() {
+<span class="fc" id="L175">		return description;</span>
+	}
+
+	public void setDescription(String description) {
+<span class="fc" id="L179">		this.description = description;</span>
+<span class="fc" id="L180">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

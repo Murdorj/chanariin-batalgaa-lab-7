@@ -94,7 +94,13 @@ public class Calendar {
         if (mEnd < 0 || mEnd > 23) {
             throw new TimeConflictException("Illegal hour.");
         }
-        if (mStart >= mEnd) {
+        boolean invalidOrder;
+        if (MutationConfig.isActive("MUTANT_REL_BOUNDARY")) {
+            invalidOrder = mStart > mEnd;
+        } else {
+            invalidOrder = mStart >= mEnd;
+        }
+        if (invalidOrder) {
             throw new TimeConflictException("Meeting starts before it ends.");
         }
     }

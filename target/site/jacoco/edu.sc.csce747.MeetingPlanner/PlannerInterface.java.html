@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PlannerInterface.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">MeetingPlanner</a> &gt; <a href="index.source.html" class="el_package">edu.sc.csce747.MeetingPlanner</a> &gt; <span class="el_source">PlannerInterface.java</span></div><h1>PlannerInterface.java</h1><pre class="source lang-java linenums">package edu.sc.csce747.MeetingPlanner;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+
+public class PlannerInterface {
+	private Organization org;
+
+	/**
+	 * Constructor, sets up organization data structure.
+	 */
+<span class="nc" id="L14">	public PlannerInterface(){</span>
+<span class="nc" id="L15">		org = new Organization();</span>
+<span class="nc" id="L16">	}</span>
+
+	/**
+	 * Driver for the calendar system.
+	 * @param args - Unused for this class
+	 */
+	public static void main(String[] args){	
+<span class="nc" id="L23">		PlannerInterface menu = new PlannerInterface();</span>
+<span class="nc" id="L24">		System.out.println(&quot;Welcome to the Meeting Scheduling Interface.&quot;);</span>
+<span class="nc" id="L25">		menu.mainMenu();</span>
+<span class="nc" id="L26">	}</span>
+
+	/**
+	 * Prints the main menu and handles user input for 
+	 * main menu commands.
+	 */
+	public void mainMenu() {
+<span class="nc" id="L33">		System.out.println(&quot;1. Schedule a meeting&quot;);</span>
+<span class="nc" id="L34">		System.out.println(&quot;2. Request vacation time&quot;);</span>
+<span class="nc" id="L35">		System.out.println(&quot;3. Check room availability&quot;);</span>
+<span class="nc" id="L36">		System.out.println(&quot;4. Check person availability&quot;);</span>
+<span class="nc" id="L37">		System.out.println(&quot;5. Print agenda for a room&quot;);</span>
+<span class="nc" id="L38">		System.out.println(&quot;6. Check agenda for a person&quot;);</span>
+<span class="nc" id="L39">		System.out.println(&quot;0. Exit\n&quot;);</span>
+
+		//Get user input
+		try {
+<span class="nc" id="L43">			int userInput = Integer.parseInt(inputOutput(&quot;Please press the number that corresponds to what you would like to do.&quot;));</span>
+
+<span class="nc bnc" id="L45" title="All 4 branches missed.">			if (userInput &gt;= 0 &amp;&amp; userInput &lt;=6) {</span>
+<span class="nc bnc" id="L46" title="All 2 branches missed.">				if (userInput == 1) {</span>
+<span class="nc" id="L47">					this.scheduleMeeting();</span>
+				}
+<span class="nc bnc" id="L49" title="All 2 branches missed.">				if (userInput == 2){</span>
+<span class="nc" id="L50">					this.scheduleVacation();</span>
+				}
+<span class="nc bnc" id="L52" title="All 2 branches missed.">				if (userInput == 3){</span>
+<span class="nc" id="L53">					this.checkRoomAvailability();</span>
+				}
+<span class="nc bnc" id="L55" title="All 2 branches missed.">				if (userInput == 4){</span>
+<span class="nc" id="L56">					this.checkEmployeeAvailability();</span>
+				}
+<span class="nc bnc" id="L58" title="All 2 branches missed.">				if (userInput == 5){</span>
+<span class="nc" id="L59">					this.checkAgendaRoom();</span>
+				}
+<span class="nc bnc" id="L61" title="All 2 branches missed.">				if (userInput == 6){</span>
+<span class="nc" id="L62">					this.checkAgendaPerson();</span>
+				}
+<span class="nc bnc" id="L64" title="All 2 branches missed.">				if (userInput == 0) System.exit(0);</span>
+			} else {
+<span class="nc" id="L66">				System.out.println(&quot;Please enter a number from 0 - 6&quot;);</span>
+<span class="nc" id="L67">				this.mainMenu();</span>
+			}
+<span class="nc" id="L69">		} catch (NumberFormatException e) {</span>
+<span class="nc" id="L70">			System.out.println(&quot;Please enter a number from 0 - 6&quot;);</span>
+<span class="nc" id="L71">			this.mainMenu();</span>
+<span class="nc" id="L72">		}</span>
+<span class="nc" id="L73">	}</span>
+
+	/**
+	 * Passes a prompt to the user and returns the user specified 
+	 * string.
+	 * @param message - User input.
+	 * @return String - Entered string.
+	 */
+	private String inputOutput(String message) {
+<span class="nc" id="L82">		System.out.println(message);</span>
+<span class="nc" id="L83">		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));</span>
+<span class="nc" id="L84">		String returnString = &quot;&quot;;</span>
+		try {
+<span class="nc" id="L86">			returnString = br.readLine();</span>
+		}
+<span class="nc" id="L88">		catch (IOException e){</span>
+<span class="nc" id="L89">			System.out.println(&quot;Error reading in value&quot;);</span>
+<span class="nc" id="L90">			this.mainMenu();</span>
+<span class="nc" id="L91">		}</span>
+<span class="nc" id="L92">		return returnString;</span>
+	}
+
+	/**
+	 * Allows the user to schedule a meeting by entering 
+	 * information about the meeting.
+	 */
+	public void scheduleMeeting() {
+
+		//Read in month
+<span class="nc" id="L102">		int month = Integer.parseInt(inputOutput(&quot;\nEnter the month of the meeting (1-12): &quot;));</span>
+
+		//Read in day
+<span class="nc" id="L105">		int day = Integer.parseInt(inputOutput(&quot;\nEnter the day of the meeting (1-31): &quot;));</span>
+
+		//Read in start time
+<span class="nc" id="L108">		int startTime = Integer.parseInt(inputOutput(&quot;\nEnter the starting hour of the meeting (0-23): &quot;));</span>
+
+		//Read in end time
+<span class="nc" id="L111">		int endTime = Integer.parseInt(inputOutput(&quot;\nEnter the ending hour of the meeting (0-23): &quot;));</span>
+
+<span class="nc" id="L113">		System.out.println(&quot;The rooms open at that time are:&quot;);</span>
+		//Display the rooms open at that time
+<span class="nc bnc" id="L115" title="All 2 branches missed.">		for(Room r: org.getRooms()){</span>
+			try{
+<span class="nc bnc" id="L117" title="All 2 branches missed.">				if(!(r.isBusy(month, day, startTime, endTime))){</span>
+<span class="nc" id="L118">					System.out.println(r.getID());</span>
+				}
+<span class="nc" id="L120">			}catch(TimeConflictException e){</span>
+<span class="nc" id="L121">				System.out.println(e.getMessage());</span>
+<span class="nc" id="L122">				this.mainMenu();</span>
+<span class="nc" id="L123">			}</span>
+<span class="nc" id="L124">		}</span>
+
+		//Read in room ID
+<span class="nc" id="L127">		Room where = new Room();</span>
+<span class="nc" id="L128">		boolean selected=false;</span>
+<span class="nc bnc" id="L129" title="All 2 branches missed.">		while(!selected){</span>
+			try{
+<span class="nc" id="L131">				String id =inputOutput(&quot;\nEnter the desired room ID, or cancel to cancel: &quot;);</span>
+<span class="nc bnc" id="L132" title="All 2 branches missed.">				if(id.equals(&quot;cancel&quot;)){</span>
+<span class="nc" id="L133">					this.mainMenu();</span>
+				}else{
+<span class="nc" id="L135">					where = org.getRoom(id);</span>
+				}
+<span class="nc" id="L137">				selected=true;</span>
+<span class="nc" id="L138">			}catch(Exception e){</span>
+<span class="nc" id="L139">				System.out.println(e.getMessage());</span>
+<span class="nc" id="L140">			}</span>
+		}	
+
+<span class="nc" id="L143">		System.out.println(&quot;The people available to attend at that time are:&quot;);</span>
+		//Display the people available at that time
+<span class="nc bnc" id="L145" title="All 2 branches missed.">		for(Person p: org.getEmployees()){</span>
+			try{
+<span class="nc bnc" id="L147" title="All 2 branches missed.">				if(!(p.isBusy(month, day, startTime, endTime))){</span>
+<span class="nc" id="L148">					System.out.println(p.getName());</span>
+				}
+<span class="nc" id="L150">			}catch(TimeConflictException e){</span>
+<span class="nc" id="L151">				System.out.println(e.getMessage());</span>
+<span class="nc" id="L152">				this.mainMenu();</span>
+<span class="nc" id="L153">			}</span>
+<span class="nc" id="L154">		}</span>
+
+		//Read in person names
+<span class="nc" id="L157">		String name = &quot;&quot;;</span>
+<span class="nc" id="L158">		ArrayList&lt;Person&gt; attendees = new ArrayList&lt;Person&gt;();</span>
+<span class="nc bnc" id="L159" title="All 2 branches missed.">		while(!name.equals(&quot;done&quot;)){</span>
+<span class="nc" id="L160">			name = inputOutput(&quot;\nEnter a person's name, or done if finished: &quot;);</span>
+<span class="nc bnc" id="L161" title="All 2 branches missed.">			if(!name.equals(&quot;done&quot;)){</span>
+				try{
+<span class="nc" id="L163">					Person who = org.getEmployee(name);</span>
+<span class="nc" id="L164">					attendees.add(who);</span>
+<span class="nc" id="L165">				}catch(Exception e){</span>
+<span class="nc" id="L166">					System.out.println(e.getMessage());</span>
+<span class="nc" id="L167">				}</span>
+			}
+		}
+
+		//Read in description
+<span class="nc" id="L172">		String description  = (inputOutput(&quot;\nEnter a description for the meeting: &quot;));</span>
+
+<span class="nc" id="L174">		Meeting meeting = new Meeting(month,day,startTime,endTime,attendees,where,description);</span>
+		try{
+<span class="nc" id="L176">			where.addMeeting(meeting);</span>
+<span class="nc bnc" id="L177" title="All 2 branches missed.">			for(Person employee: attendees){</span>
+<span class="nc" id="L178">				employee.addMeeting(meeting);</span>
+<span class="nc" id="L179">			}</span>
+
+<span class="nc" id="L181">		}catch(TimeConflictException e){</span>
+<span class="nc" id="L182">			System.out.println(e.getMessage());</span>
+<span class="nc" id="L183">		}</span>
+
+<span class="nc" id="L185">		this.mainMenu();</span>
+<span class="nc" id="L186">	}</span>
+
+	/**
+	 * Allows the user to schedule vacation time for an employee.
+	 */
+	public void scheduleVacation() {
+
+		//Read in start month
+<span class="nc" id="L194">		int sMonth = Integer.parseInt(inputOutput(&quot;\nEnter the month that the vacation starts (1-12): &quot;));</span>
+
+		//Read in start day
+<span class="nc" id="L197">		int sDay = Integer.parseInt(inputOutput(&quot;\nEnter the day the vacation starts (1-31): &quot;));</span>
+
+		//Read in end month
+<span class="nc" id="L200">		int eMonth = Integer.parseInt(inputOutput(&quot;\nEnter the month that the vacation ends (1-12): &quot;));</span>
+
+		//Read in end day
+<span class="nc" id="L203">		int eDay = Integer.parseInt(inputOutput(&quot;\nEnter the day the vacation ends (1-31): &quot;));</span>
+
+<span class="nc" id="L205">		System.out.println(&quot;Which person will be taking the vacation:&quot;);</span>
+		//Display the people available at that time
+<span class="nc bnc" id="L207" title="All 2 branches missed.">		for(Person p: org.getEmployees()){</span>
+<span class="nc" id="L208">			System.out.println(p.getName());</span>
+<span class="nc" id="L209">		}</span>
+
+		//Read in person names
+<span class="nc" id="L212">		ArrayList&lt;Person&gt; attendees = new ArrayList&lt;Person&gt;();</span>
+<span class="nc" id="L213">		String name = inputOutput(&quot;\nEnter a person's name, or cancel to cancel the request: &quot;);</span>
+<span class="nc" id="L214">		Person who = new Person();</span>
+<span class="nc bnc" id="L215" title="All 2 branches missed.">		if(!name.equals(&quot;cancel&quot;)){</span>
+			try{
+<span class="nc" id="L217">				who = org.getEmployee(name);</span>
+<span class="nc" id="L218">				attendees.add(who);</span>
+<span class="nc" id="L219">			}catch(Exception e){</span>
+<span class="nc" id="L220">				System.out.println(e.getMessage());</span>
+<span class="nc" id="L221">			}</span>
+		}
+
+		// See if there are any conflicts during the period
+<span class="nc" id="L225">		boolean conflict=false;</span>
+		try{
+<span class="nc bnc" id="L227" title="All 2 branches missed.">			if(sMonth!=eMonth){</span>
+				// Start month
+<span class="nc bnc" id="L229" title="All 2 branches missed.">				for(int day=sDay; day&lt;=31;day++){</span>
+<span class="nc bnc" id="L230" title="All 2 branches missed.">					if(who.isBusy(sMonth,day,0,23)){</span>
+<span class="nc bnc" id="L231" title="All 2 branches missed.">						if(!who.getMeeting(sMonth,day,0).getDescription().equals(&quot;Day does not exist&quot;)){</span>
+<span class="nc" id="L232">							System.out.println(&quot;There is a conflict for date &quot;+sMonth+&quot;/&quot;+day+&quot;:\n&quot;+who.printAgenda(sMonth, day));</span>
+<span class="nc" id="L233">							conflict=true;</span>
+						}
+					}
+				}
+				// Any intervening months
+<span class="nc bnc" id="L238" title="All 2 branches missed.">				for(int month=sMonth+1; month&lt;eMonth;month++){</span>
+<span class="nc bnc" id="L239" title="All 2 branches missed.">					for(int day=1; day&lt;=31;day++){</span>
+<span class="nc bnc" id="L240" title="All 2 branches missed.">						if(who.isBusy(month,day,0,23)){</span>
+<span class="nc bnc" id="L241" title="All 2 branches missed.">							if(!who.getMeeting(month,day,0).getDescription().equals(&quot;Day does not exist&quot;)){</span>
+<span class="nc" id="L242">								System.out.println(&quot;There is a conflict for date &quot;+month+&quot;/&quot;+day+&quot;:\n&quot;+who.printAgenda(month, day));</span>
+<span class="nc" id="L243">								conflict=true;</span>
+							}
+						}
+					}
+				}
+				// End month
+<span class="nc bnc" id="L249" title="All 2 branches missed.">				for(int day=1;day&lt;=eDay;day++){</span>
+<span class="nc bnc" id="L250" title="All 2 branches missed.">					if(who.isBusy(eMonth,day,0,23)){</span>
+<span class="nc bnc" id="L251" title="All 2 branches missed.">						if(!who.getMeeting(eMonth,day,0).getDescription().equals(&quot;Day does not exist&quot;)){</span>
+<span class="nc" id="L252">							System.out.println(&quot;There is a conflict for date &quot;+eMonth+&quot;/&quot;+day+&quot;:\n&quot;+who.printAgenda(eMonth, day));</span>
+<span class="nc" id="L253">							conflict=true;</span>
+						}
+					}
+				}
+			}else{
+<span class="nc bnc" id="L258" title="All 2 branches missed.">				for(int day=sDay; day&lt;=eDay;day++){</span>
+<span class="nc bnc" id="L259" title="All 2 branches missed.">					if(who.isBusy(sMonth,day,0,23)){</span>
+<span class="nc bnc" id="L260" title="All 2 branches missed.">						if(!who.getMeeting(sMonth,day,0).getDescription().equals(&quot;Day does not exist&quot;)){</span>
+<span class="nc" id="L261">							System.out.println(&quot;There is a conflict for date &quot;+sMonth+&quot;/&quot;+day+&quot;:\n&quot;+who.printAgenda(sMonth, day));</span>
+<span class="nc" id="L262">							conflict=true;</span>
+						}
+					}
+				}
+			}
+<span class="nc" id="L267">		}catch(TimeConflictException e){</span>
+<span class="nc" id="L268">			System.out.println(e.getMessage());</span>
+<span class="nc" id="L269">			this.mainMenu();</span>
+<span class="nc" id="L270">		}</span>
+
+<span class="nc bnc" id="L272" title="All 2 branches missed.">		if(conflict){</span>
+<span class="nc" id="L273">			this.mainMenu();</span>
+		}else{
+			// Book the time
+<span class="nc bnc" id="L276" title="All 2 branches missed.">			if(sMonth!=eMonth){</span>
+				// Start month
+<span class="nc bnc" id="L278" title="All 2 branches missed.">				for(int day=sDay; day&lt;=31;day++){</span>
+<span class="nc" id="L279">					Meeting meeting = new Meeting(sMonth,day,0,23,attendees,new Room(),&quot;vacation&quot;);</span>
+					try{
+<span class="nc" id="L281">						who.addMeeting(meeting);</span>
+<span class="nc" id="L282">					}catch(TimeConflictException e){</span>
+<span class="nc" id="L283">						System.out.println(e.getMessage());</span>
+<span class="nc" id="L284">						this.mainMenu();</span>
+<span class="nc" id="L285">					}</span>
+				}
+				// Any intervening months
+<span class="nc bnc" id="L288" title="All 2 branches missed.">				for(int month=sMonth+1; month&lt;eMonth;month++){</span>
+<span class="nc bnc" id="L289" title="All 2 branches missed.">					for(int day=1; day&lt;=31;day++){</span>
+<span class="nc" id="L290">						Meeting meeting = new Meeting(month,day,0,23,attendees,new Room(),&quot;vacation&quot;);</span>
+						try{
+<span class="nc" id="L292">							who.addMeeting(meeting);</span>
+<span class="nc" id="L293">						}catch(TimeConflictException e){</span>
+<span class="nc" id="L294">							System.out.println(e.getMessage());</span>
+<span class="nc" id="L295">							this.mainMenu();</span>
+<span class="nc" id="L296">						}</span>
+					}
+				}
+				// End month
+<span class="nc bnc" id="L300" title="All 2 branches missed.">				for(int day=1;day&lt;=eDay;day++){</span>
+<span class="nc" id="L301">					Meeting meeting = new Meeting(eMonth,day,0,23,attendees,new Room(),&quot;vacation&quot;);</span>
+					try{
+<span class="nc" id="L303">						who.addMeeting(meeting);</span>
+<span class="nc" id="L304">					}catch(TimeConflictException e){</span>
+<span class="nc" id="L305">						System.out.println(e.getMessage());</span>
+<span class="nc" id="L306">						this.mainMenu();</span>
+<span class="nc" id="L307">					}</span>
+				}
+			}else{
+<span class="nc bnc" id="L310" title="All 2 branches missed.">				for(int day=sDay; day&lt;=eDay;day++){</span>
+<span class="nc" id="L311">					Meeting meeting = new Meeting(sMonth,day,0,23,attendees,new Room(),&quot;vacation&quot;);</span>
+					try{
+<span class="nc" id="L313">						who.addMeeting(meeting);</span>
+<span class="nc" id="L314">					}catch(TimeConflictException e){</span>
+<span class="nc" id="L315">						System.out.println(e.getMessage());</span>
+<span class="nc" id="L316">						this.mainMenu();</span>
+<span class="nc" id="L317">					}</span>
+				}
+			}
+		}
+
+<span class="nc" id="L322">		this.mainMenu();</span>
+<span class="nc" id="L323">	}</span>
+
+	/**
+	 * Allows a user to check the availability of a room at a given time.
+	 */
+	public void checkRoomAvailability() {
+
+		//Read in month
+<span class="nc" id="L331">		int month = Integer.parseInt(inputOutput(&quot;\nEnter the month of the meeting (1-12): &quot;));</span>
+
+		//Read in day
+<span class="nc" id="L334">		int day = Integer.parseInt(inputOutput(&quot;\nEnter the day of the meeting (1-31): &quot;));</span>
+
+		//Read in start time
+<span class="nc" id="L337">		int startTime = Integer.parseInt(inputOutput(&quot;\nEnter the starting hour of the meeting (0-23): &quot;));</span>
+
+		//Read in end time
+<span class="nc" id="L340">		int endTime = Integer.parseInt(inputOutput(&quot;\nEnter the ending hour of the meeting (0-23): &quot;));</span>
+
+<span class="nc" id="L342">		System.out.println(&quot;The rooms open at that time are:&quot;);</span>
+		//Display the rooms open at that time
+<span class="nc bnc" id="L344" title="All 2 branches missed.">		for(Room r: org.getRooms()){</span>
+			try{
+<span class="nc bnc" id="L346" title="All 2 branches missed.">				if(!(r.isBusy(month, day, startTime, endTime))){</span>
+<span class="nc" id="L347">					System.out.println(r.getID());</span>
+				}
+<span class="nc" id="L349">			}catch(TimeConflictException e){</span>
+<span class="nc" id="L350">				System.out.println(e.getMessage());</span>
+<span class="nc" id="L351">				this.mainMenu();</span>
+<span class="nc" id="L352">			}</span>
+<span class="nc" id="L353">		}</span>
+
+<span class="nc" id="L355">		this.mainMenu();</span>
+<span class="nc" id="L356">	}</span>
+
+	/**
+	 * Allows the user to check the availability of a given employee
+	 * at a particular time.
+	 */
+	public void checkEmployeeAvailability() {
+
+		//Read in month
+<span class="nc" id="L365">		int month = Integer.parseInt(inputOutput(&quot;\nEnter the month of the meeting (1-12): &quot;));</span>
+
+		//Read in day
+<span class="nc" id="L368">		int day = Integer.parseInt(inputOutput(&quot;\nEnter the day of the meeting (1-31): &quot;));</span>
+
+		//Read in start time
+<span class="nc" id="L371">		int startTime = Integer.parseInt(inputOutput(&quot;\nEnter the starting hour of the meeting (0-23): &quot;));</span>
+
+		//Read in end time
+<span class="nc" id="L374">		int endTime = Integer.parseInt(inputOutput(&quot;\nEnter the ending hour of the meeting (0-23): &quot;));</span>
+
+<span class="nc" id="L376">		System.out.println(&quot;The people available to attend at that time are:&quot;);</span>
+		//Display the people available at that time
+<span class="nc bnc" id="L378" title="All 2 branches missed.">		for(Person p: org.getEmployees()){</span>
+			try{
+<span class="nc bnc" id="L380" title="All 2 branches missed.">				if(!(p.isBusy(month, day, startTime, endTime))){</span>
+<span class="nc" id="L381">					System.out.println(p.getName());</span>
+				}
+<span class="nc" id="L383">			}catch(TimeConflictException e){</span>
+<span class="nc" id="L384">				System.out.println(e.getMessage());</span>
+<span class="nc" id="L385">				this.mainMenu();</span>
+<span class="nc" id="L386">			}</span>
+<span class="nc" id="L387">		}</span>
+
+<span class="nc" id="L389">		this.mainMenu();</span>
+<span class="nc" id="L390">	}</span>
+
+	/**
+	 * Allows the user to view the agenda of a room on a particular month
+	 * or day.
+	 */
+	public void checkAgendaRoom() {
+
+		//Read in month
+<span class="nc" id="L399">		int month = Integer.parseInt(inputOutput(&quot;\nEnter the month (1-12): &quot;));</span>
+
+		//Read in day
+<span class="nc" id="L402">		String day = inputOutput(&quot;\nEnter the day (1-31), or all to see the whole month: &quot;);</span>
+
+<span class="nc" id="L404">		System.out.println(&quot;Which of the following rooms are you interested in?&quot;);</span>
+		//Display the rooms open at that time
+<span class="nc bnc" id="L406" title="All 2 branches missed.">		for(Room r: org.getRooms()){</span>
+<span class="nc" id="L407">			System.out.println(r.getID());</span>
+<span class="nc" id="L408">		}</span>
+
+		//Read in person names
+<span class="nc" id="L411">		String name = inputOutput(&quot;\nEnter a room ID, or cancel to cancel the request: &quot;);</span>
+<span class="nc bnc" id="L412" title="All 2 branches missed.">		if(!name.equals(&quot;cancel&quot;)){</span>
+			try{
+<span class="nc" id="L414">				Room who = org.getRoom(name);</span>
+<span class="nc bnc" id="L415" title="All 2 branches missed.">				if(!day.equals(&quot;all&quot;)){</span>
+<span class="nc" id="L416">					System.out.println(who.printAgenda(month, Integer.parseInt(day)));</span>
+				}else{
+<span class="nc" id="L418">					System.out.println(who.printAgenda(month));</span>
+				}
+<span class="nc" id="L420">			}catch(Exception e){</span>
+<span class="nc" id="L421">				System.out.println(e.getMessage());</span>
+<span class="nc" id="L422">			}</span>
+		}
+<span class="nc" id="L424">		this.mainMenu();</span>
+<span class="nc" id="L425">	}</span>
+
+	/**
+	 * Allows the user to view the agenda for a particular employee
+	 * on a particular month or day.
+	 */
+	public void checkAgendaPerson() {
+
+		//Read in month
+<span class="nc" id="L434">		int month = Integer.parseInt(inputOutput(&quot;\nEnter the month (1-12): &quot;));</span>
+
+		//Read in day
+<span class="nc" id="L437">		String day = inputOutput(&quot;\nEnter the day (1-31), or all to see the whole month: &quot;);</span>
+
+<span class="nc" id="L439">		System.out.println(&quot;Which of the following people are you interested in?&quot;);</span>
+		//Display the rooms open at that time
+<span class="nc bnc" id="L441" title="All 2 branches missed.">		for(Person p: org.getEmployees()){</span>
+<span class="nc" id="L442">			System.out.println(p.getName());</span>
+<span class="nc" id="L443">		}</span>
+
+		//Read in person names
+<span class="nc" id="L446">		String name = inputOutput(&quot;\nEnter a name, or cancel to cancel the request: &quot;);</span>
+<span class="nc bnc" id="L447" title="All 2 branches missed.">		if(!name.equals(&quot;cancel&quot;)){</span>
+			try{
+<span class="nc" id="L449">				Person who = org.getEmployee(name);</span>
+<span class="nc bnc" id="L450" title="All 2 branches missed.">				if(!day.equals(&quot;all&quot;)){</span>
+<span class="nc" id="L451">					System.out.println(who.printAgenda(month, Integer.parseInt(day)));</span>
+				}else{
+<span class="nc" id="L453">					System.out.println(who.printAgenda(month));</span>
+				}
+<span class="nc" id="L455">			}catch(Exception e){</span>
+<span class="nc" id="L456">				System.out.println(e.getMessage());</span>
+<span class="nc" id="L457">			}</span>
+		}
+<span class="nc" id="L459">		this.mainMenu();</span>
+<span class="nc" id="L460">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

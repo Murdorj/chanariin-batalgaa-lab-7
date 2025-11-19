@@ -32,6 +32,9 @@ public class Room {
         try{
             calendar.addMeeting(meeting);
         }catch(TimeConflictException e){
+            if (MutationConfig.isActive("MUTANT_SWALLOW_ROOM_CONFLICT")) {
+                return;
+            }
             throw new TimeConflictException("Conflict for room "+ID+":\n"+e.getMessage());
         }
     }

@@ -57,7 +57,11 @@ public class Person {
 	 * @see Calendar#isBusy(int, int, int, int)
 	 */
 	public boolean isBusy(int month, int day, int start, int end) throws TimeConflictException{
-		return calendar.isBusy(month,day,start,end);
+		boolean busy = calendar.isBusy(month,day,start,end);
+		if (MutationConfig.isActive("MUTANT_NEGATE_PERSON_BUSY")) {
+			return !busy;
+		}
+		return busy;
 	}
 	
 	/**

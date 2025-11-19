@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="edu.sc.csce747.MeetingPlanner.RoomTest" time="0.02" tests="2" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="edu.sc.csce747.MeetingPlanner.RoomTest" time="0.029" tests="7" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="25"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
     <property name="java.class.path" value="/Users/murdorj/Downloads/MeetingPlanner/target/test-classes:/Users/murdorj/Downloads/MeetingPlanner/target/classes:/Users/murdorj/.m2/repository/junit/junit/4.13.2/junit-4.13.2.jar:/Users/murdorj/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:"/>
     <property name="java.vm.vendor" value="Homebrew"/>
     <property name="sun.arch.data.model" value="64"/>
+    <property name="mutation.id" value="MUTANT_REL_BOUNDARY"/>
     <property name="java.vendor.url" value="https://github.com/Homebrew/homebrew-core/issues"/>
     <property name="os.name" value="Mac OS X"/>
     <property name="java.vm.specification.version" value="25"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="MN"/>
     <property name="sun.boot.library.path" value="/opt/homebrew/Cellar/openjdk/25/libexec/openjdk.jdk/Contents/Home/lib"/>
-    <property name="sun.java.command" value="/Users/murdorj/Downloads/MeetingPlanner/target/surefire/surefirebooter-20251029000631316_3.jar /Users/murdorj/Downloads/MeetingPlanner/target/surefire 2025-10-29T00-06-31_278-jvmRun1 surefire-20251029000631316_1tmp surefire_0-20251029000631316_2tmp"/>
+    <property name="sun.java.command" value="/Users/murdorj/Downloads/MeetingPlanner/target/surefire/surefirebooter-20251119173831132_3.jar /Users/murdorj/Downloads/MeetingPlanner/target/surefire 2025-11-19T17-38-31_069-jvmRun1 surefire-20251119173831132_1tmp surefire_0-20251119173831132_2tmp"/>
     <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="/Users/murdorj/Downloads/MeetingPlanner/target/test-classes:/Users/murdorj/Downloads/MeetingPlanner/target/classes:/Users/murdorj/.m2/repository/junit/junit/4.13.2/junit-4.13.2.jar:/Users/murdorj/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:"/>
@@ -29,7 +30,7 @@
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="apple.awt.application.name" value="ForkedBooter"/>
-    <property name="surefire.real.class.path" value="/Users/murdorj/Downloads/MeetingPlanner/target/surefire/surefirebooter-20251029000631316_3.jar"/>
+    <property name="surefire.real.class.path" value="/Users/murdorj/Downloads/MeetingPlanner/target/surefire/surefirebooter-20251119173831132_3.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.runtime.version" value="25"/>
@@ -59,6 +60,11 @@
     <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.class.version" value="69.0"/>
   </properties>
-  <testcase name="testPrintAgenda_containsDescription" classname="edu.sc.csce747.MeetingPlanner.RoomTest" time="0.004"/>
-  <testcase name="testAddOverlap_shouldThrow_roomMessage" classname="edu.sc.csce747.MeetingPlanner.RoomTest" time="0.0"/>
+  <testcase name="testAddMeetingAndPrintAgenda" classname="edu.sc.csce747.MeetingPlanner.RoomTest" time="0.005"/>
+  <testcase name="testPrintAgendaDay" classname="edu.sc.csce747.MeetingPlanner.RoomTest" time="0.0"/>
+  <testcase name="testAddOverlap_shouldThrowConflictMessage" classname="edu.sc.csce747.MeetingPlanner.RoomTest" time="0.0"/>
+  <testcase name="testRemoveMeeting" classname="edu.sc.csce747.MeetingPlanner.RoomTest" time="0.0"/>
+  <testcase name="testConstructorWithID" classname="edu.sc.csce747.MeetingPlanner.RoomTest" time="0.0"/>
+  <testcase name="testDefaultConstructorAndGetID" classname="edu.sc.csce747.MeetingPlanner.RoomTest" time="0.0"/>
+  <testcase name="testIsBusyAndGetMeeting" classname="edu.sc.csce747.MeetingPlanner.RoomTest" time="0.0"/>
 </testsuite>
